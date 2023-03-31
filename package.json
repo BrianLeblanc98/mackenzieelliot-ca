@@ -9,9 +9,11 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "nuxt": "^3.3.2"
   },
   "dependencies": {
+    "firebase": "^9.19.0",
     "sass": "^1.60.0",
     "sass-loader": "^13.2.2"
   }

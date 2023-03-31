@@ -14,6 +14,8 @@
 </template>
 
 <script lang='ts'>
+import { ref, onValue, set } from 'firebase/database';
+
 export default {
   head() {
     return {
@@ -30,36 +32,47 @@ export default {
     }
   },
   mounted() {
+    const testRef = ref(this.$database as any, 'buttonPresses/');
+    onValue(testRef, (snapshot) => {
+        const data = snapshot.val();
+        const keys = Object.keys(data);
+        this.count = keys.length;
+
+        const mostRecent = new Date(keys.sort((a, b) => {
+          if (new Date(a) > new Date(b)) return -1;
+          if (new Date(a) < new Date(b)) return 1;
+          return 0;
+        })[0]);
+
+        console.log(mostRecent);
+        this.countDownDate = new Date(mostRecent.getTime() + 30*60000);
+    });
     setInterval(() => {
       this.updateTimer();
     }, 1000);
   },
   methods: {
     updateTimer() {
-      if (!this.isAvailable) {
-        const now = new Date().getTime();
-        const distance = this.countDownDate.getTime() - now;
+      const now = new Date().getTime();
+      const distance = this.countDownDate.getTime() - now;
 
-        if (distance < 0) {
-          this.minutes = 0;
-          this.seconds = 0;
-          this.isAvailable = true;
-        } else {
-          this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        }
+      if (distance < 0) {
+        this.minutes = 0;
+        this.seconds = 0;
+        this.isAvailable = true;
+      } else {
+        this.isAvailable = false;
+        this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
       }
     },
-    setDateToNowPlus30m() {
-      const now = new Date();
-      this.countDownDate = new Date(now.getTime() + 30*60000);
-      // this.countDownDate = new Date(now.getTime() + 10000);
-    },
     handleButton() {
-      this.count++;
-      this.isAvailable = false;
-      this.setDateToNowPlus30m();
-      this.updateTimer();
+      if (this.isAvailable) {
+        this.isAvailable = false;
+        this.updateTimer();
+
+        set(ref(this.$database as any, 'buttonPresses/' + new Date()), 'lol');
+      }
     }
   }
 }
