@@ -6,19 +6,19 @@ import { getAnalytics } from 'firebase/analytics';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin((nuxtApp) => {
+    const config = useRuntimeConfig();
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    console.log(process.env)
     const firebaseConfig = {
-        apiKey: process.env.fireBaseApiKey,
-        authDomain: process.env.fireBaseAuthDomain,
-        databaseURL: process.env.fireBaseDatabaseURL,
-        projectId: process.env.fireBaseProjectId,
-        storageBucket: process.env.fireBaseStorageBucket,
-        messagingSenderId: process.env.fireBaseMessagingSenderId,
-        appId: process.env.fireBaseappId,
-        measurementId: process.env.fireBaseMeasurementId
+        apiKey: config.public.fireBaseApiKey,
+        authDomain: config.public.fireBaseAuthDomain,
+        databaseURL: config.public.fireBaseDatabaseURL,
+        projectId: config.public.fireBaseProjectId,
+        storageBucket: config.public.fireBaseStorageBucket,
+        messagingSenderId: config.public.fireBaseMessagingSenderId,
+        appId: config.public.fireBaseappId,
+        measurementId: config.public.fireBaseMeasurementId
     };
 
     // Initialize Firebase

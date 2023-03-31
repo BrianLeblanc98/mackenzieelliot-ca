@@ -44,7 +44,6 @@ export default {
           return 0;
         })[0]);
 
-        console.log(mostRecent);
         this.countDownDate = new Date(mostRecent.getTime() + 30*60000);
     });
     setInterval(() => {
