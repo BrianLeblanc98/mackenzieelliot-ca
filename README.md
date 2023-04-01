@@ -1,42 +1,9 @@
-# Nuxt 3 Minimal Starter
+# Mackenzie Elliot losing The Game tracker
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+www.mackenzieelliot.ca
 
-## Setup
+If you are unaware of "The Game", read here: https://en.wikipedia.org/wiki/The_Game_(mind_game)
 
-Make sure to install the dependencies:
+---
 
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on http://localhost:3000
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+This site is to keep track of how many times my friend, Mackenzie Elliot, has lost the game. I've created a site with a simple display of how many times he has lost the game, and a button to add to that count. However, we have a 30 minute grace period for The Game, so the button will be disabled and change to show a countdown until the grace period is over. The date and time of each button press is stored in a Firebase Realtime Database.
